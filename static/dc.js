@@ -8666,7 +8666,7 @@ dc.rowChart = function (parent, chartGroup) {
         if (!_hasLabelOffsetY) {
             _labelOffsetY = height / 2;
         }
-
+        _chart.ordinalColors(["#4be399","#ff0059"]);
         var rect = rows.attr('transform', function (d, i) {
                 return 'translate(0,' + ((i + 1) * _gap + i * height) + ')';
             }).select('rect')
@@ -9242,9 +9242,9 @@ dc.scatterPlot = function (parent, chartGroup) {
                               _chart.y()(_chart.valueAccessor()(d)) + ')';
     };
 
-    var _highlightedSize = 7;
-    var _symbolSize = 5;
-    var _excludedSize = 3;
+    var _highlightedSize = 3;
+    var _symbolSize = 3;
+    var _excludedSize = 2;
     var _excludedColor = null;
     var _excludedOpacity = 1.0;
     var _emptySize = 0;
@@ -9280,7 +9280,17 @@ dc.scatterPlot = function (parent, chartGroup) {
         .append('path')
             .attr('class', 'symbol')
             .attr('opacity', 0)
-            .attr('fill', _chart.getColor)
+            // .attr('fill', _chart.getColor)
+            .style("fill",function(d,i){
+                // console.log(d["key"][2])
+                if(d["key"][2]==0){
+                    return "#ff0059"
+                }
+                else{
+                    return "#4be399"
+                }
+            })
+            .attr("fill-opacity", 0.6)
             .attr('transform', _locator);
 
         symbols.call(renderTitles, _chart.data());

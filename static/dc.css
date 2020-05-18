@@ -175,7 +175,9 @@ div.dc-chart {
     fill: #ccc; }
 
 .dc-chart .symbol {
-  stroke: none; }
+  /* stroke: #2BBBAD; */
+  fill:#2BBBAD;
+}
 
 .dc-chart .heatmap .box-group.deselected rect {
   stroke: none;

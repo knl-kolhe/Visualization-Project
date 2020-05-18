@@ -57,10 +57,10 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card text-white bg-dark mb-3 d-flex" style="max-width: 18rem;">
                 <div class="card-header">Total Approved</div>
                 <div id="pie_chart_0_1" class="card-body bg-light" style="Padding: 2px;">
-                    <a class="reset" href="javascript:a15Dimension.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
+                    <a class="reset" href="javascript:targetPie.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
 
                 </div>
             </div>
@@ -71,7 +71,23 @@
             <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                 <div class="card-header">Education</div>
                 <div id="education" class="card-body bg-light" style="padding: 0%;">
-
+                    <a class="reset" href="javascript:educationChart.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Prior Default</div>
+                <div id="priorDefault" class="card-body bg-light" style="padding: 0%;">
+                    <a class="reset" href="javascript:priorDefaultRowChart.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">MDS</div>
+                <div id="mds" class="card-body bg-light" style="padding: 0%;">
+                    <a class="reset" href="javascript:mdsScatterPlot.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
                 </div>
             </div>
         </div>
@@ -82,56 +98,12 @@
 <script src="./static/dc.js"></script>
 
 
-<script>
+<script async="async">
     var data = {{ data | safe }};
     {{taskJS}}(data);
 
 
-    var ndx = crossfilter(data);
-    var all = ndx.groupAll();
 
-    var a15Dimension = ndx.dimension(function(d) { return d["A15"]; });
-
-    var a15Group = a15Dimension.group();
-    // a15Group.top(2)[0]["key"]="Rejected";
-    // a15Group.top(2)[1]["key"]="Accepted";
-
-    var targetPie = dc.pieChart("#pie_chart_0_1");
-
-    targetPie
-        .dimension(a15Dimension)
-        .group(a15Group);
-
-    var a5Dimension = ndx.dimension(d => Math.round(d["A5"]));
-
-    var a5Group = a5Dimension.group();
-    // a15Group.top(2)[0]["key"]="Rejected";
-    // a15Group.top(2)[1]["key"]="Accepted";
-
-    var educationChart = dc.barChart("#education");
-
-    educationChart
-        .dimension(a5Dimension)
-        .group(a5Group)
-        .elasticY(true)
-        .centerBar(true)
-        .gap(1)
-        .round(Math.floor)
-        .alwaysUseRounding(true)
-        .x(d3.scale.linear().domain([0, 15]))
-        .renderHorizontalGridLines(true);
-        // .filterPrinter(filters => {
-        //     const filter = filters[0];
-        //     let s = '';
-        //     s += `${numberFormat(filter[0])}% -> ${numberFormat(filter[1])}%`;
-        //     return s;
-        // });
-        educationChart.xAxis().tickFormat(
-            v => `${v}`);
-        educationChart.yAxis().ticks(5);
-
-
-    dc.renderAll();
 
 </script>
 

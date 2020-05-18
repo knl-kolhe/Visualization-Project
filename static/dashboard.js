@@ -1,3 +1,115 @@
+function dashboard(data) {
+    updateSelectedTask("dashboard");
+    console.log(data)
+    // data=JSON.parse(data);
+
+    // console.log(data)
+    populate_parallel(data);
+
+    populate_dcJS(data);
+
+}
+
+function populate_dcJS(data)
+{
+    // window.data;
+    var ndx = crossfilter(data);
+    var all = ndx.groupAll();
+
+    var a15Dimension = ndx.dimension(function(d) { return d["A15"]; });
+
+    var a15Group = a15Dimension.group();
+    // a15Group.top(2)[0]["key"]="Rejected";
+    // a15Group.top(2)[1]["key"]="Accepted";
+
+    window.targetPie = dc.pieChart("#pie_chart_0_1");
+
+    targetPie
+        .dimension(a15Dimension)
+        .group(a15Group);
+
+    var a8Dimension = ndx.dimension(function(d) { return d["A8"]; });
+
+    var a8Group = a8Dimension.group();
+    // a15Group.top(2)[0]["key"]="Rejected";
+    // a15Group.top(2)[1]["key"]="Accepted";
+
+    window.priorDefaultRowChart = dc.rowChart("#priorDefault");
+
+
+    priorDefaultRowChart
+        .dimension(a8Dimension)
+        .group(a8Group);
+
+    var a5Dimension = ndx.dimension(d => Math.round(d["A5"]));
+
+    var a5Group = a5Dimension.group();
+
+
+    window.educationChart = dc.barChart("#education");
+
+    educationChart
+        .dimension(a5Dimension)
+        .group(a5Group)
+        .elasticY(true)
+        .centerBar(true)
+        .gap(1)
+        .round(Math.floor)
+        .alwaysUseRounding(true)
+        .x(d3.scale.linear().domain([0, 15]))
+        .renderHorizontalGridLines(true);
+        // .filterPrinter(filters => {
+        //     const filter = filters[0];
+        //     let s = '';
+        //     s += `${numberFormat(filter[0])}% -> ${numberFormat(filter[1])}%`;
+        //     return s;
+        // });
+        educationChart.xAxis().tickFormat(
+            v => `${v}`);
+        educationChart.yAxis().ticks(5);
+
+    window.mdsScatterPlot = dc.scatterPlot('#mds');
+
+    var mdsDimension = ndx.dimension(function(data) {
+               return [Math.floor(data.MDS_x), Math.floor(data.MDS_y), +data.A15];
+            });
+    var mdsGroup = mdsDimension.group();
+
+    var xMin=500
+    var xMax=-500
+    var yMin = 500
+    var yMax = -500
+    data.forEach(function(d){
+        if(d["MDS_x"]>xMax){
+            xMax=d["MDS_x"]
+        }
+        if(d["MDS_x"]<xMin){
+            xMin=d["MDS_x"]
+        }
+        if(d["MDS_y"]>yMax){
+            yMax=d["MDS_y"]
+        }
+        if(d["MDS_y"]<yMin){
+            yMin=d["MDS_y"]
+        }
+    });
+
+    mdsScatterPlot
+               .x(d3.scale.linear().domain([xMin-1,xMax+1]))
+               .y(d3.scale.linear().domain([yMin-1,yMax+1]))
+               // .elasticX("true")
+               // .elasticY("true")
+               .brushOn(true)
+               .xAxisLabel("Dim 1")
+               .yAxisLabel("Dim 2")
+               .symbolSize(8)
+               .clipPadding(10)
+               .dimension(mdsDimension)
+               .group(mdsGroup);
+
+    dc.renderAll();
+};
+
 function populate_parallel(data)
 {
     var innerWidth = +d3.select("#parallel_coords").node().getBoundingClientRect().width
@@ -153,14 +265,3 @@ function populate_parallel(data)
       });
     }
 };
-
-function dashboard(data) {
-    updateSelectedTask("dashboard");
-    console.log(data)
-    // data=JSON.parse(data);
-
-    // console.log(data)
-    populate_parallel(data);
-
-
-}
