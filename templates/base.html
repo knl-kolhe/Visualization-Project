@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <!-- <script src="./static/Task1A.js"></script> -->
+
+    <script src="./static/updateSelectedTask.js"></script>
+    <style>
+    .container.max-width-90 {
+        max-width: 90%;
+        }
+    </style>
+    {% block head %} {% endblock %}
+</head>
+
+<body style="padding-bottom:70px;">
+    <nav class="navbar navbar-expand-md navbar-light mb-4" style="background-color: #2BBBAD ;">
+        <a class="navbar-brand" href="#">Visualization Project 2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://youtu.be/sli2BmXRqOQ">YouTube</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://github.com/knl-kolhe/Visualization-Project-2">GitHub</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About Dataset</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div class="container max-width-90">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav nav-fill w-100">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard" id="dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/task1a" id="task1a">Task 1(A)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/task1b" id="task1b">Task 1(B)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/task2a" id="task2a">Task 2</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#" id="task2b">Task 2(B)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="task2c">Task 2(C)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="task2d">Task 2(D)</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/task3a" id="task3a">Task 3(A)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/task3b" id="task3b">Task 3(B)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/task3c" id="task3c">Task 3(C)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/extra" id="extra">Extra</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        {% block body %} {% endblock %}
+    </div>
+    </div>
+    <footer class="fixed-bottom" , style="background-color: #2BBBAD ; ">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">Website Design by Kunal Kolhe
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>

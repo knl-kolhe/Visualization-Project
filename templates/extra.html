@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Visualization Project 2 </title>
+<script src="./static/{{taskJS}}.js"></script>
+<script src="https://x3dom.org/download/dev/x3dom-full.js"></script>
+<link rel="stylesheet" href="https://x3dom.org/download/dev/x3dom.css" />
+<script src="./static/d3-x3d.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+<!-- <center>In Task {{taskJS}}</center> -->
+<div id="Attribute">
+    <span id="variable"></span>
+</div>
+<div id="svgElement">
+
+</div>
+<script>
+var data = {{data | safe}};
+{{taskJS}}(data);
+</script>
+
+
+{% endblock %}

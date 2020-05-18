@@ -1,0 +1,15 @@
+A1: 0: female 1: male
+A2: Age 13.75-80.25
+A3: Mean time at addresses
+A4: Home Status
+A5:	Education (no. of years)
+A6: Current Job
+A7:	Mean time with employers
+A8:	Prior Default (0: yes 1: no)
+A9:  Employed (0: no 1: yes)
+A10: Credit Score categories
+A11: Drivers License
+A12: Citizen
+A13: Monthly Expenses
+A14: Savings account balance categories
+C: Approved (0: no 1: yes)

@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Visualization Project 2 </title>
+<script src="./static/{{taskJS}}.js"></script>
+<link rel="stylesheet" type="text/css" href="./static/dc.css">
+<style>
+    svg {
+        font: 10px sans-serif;
+    }
+
+    .background path {
+        fill: none;
+        /* stroke: #5c6263; */
+        stroke: #ddd;
+        /* shape-rendering: crispEdges; */
+    }
+
+    .foreground path {
+        fill: none;
+        stroke: steelblue;
+    }
+
+    .brush .extent {
+        fill-opacity: .3;
+        stroke: #fff;
+        shape-rendering: crispEdges;
+    }
+
+    .axis line,
+    .axis path {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+        cursor: move;
+        fill: #000;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container max-width-90" style="padding-top:10px;">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">
+                    Parallel Coordinates
+                </div>
+                <div id="parallel_coords" class="card-body bg-light" style="padding: 0%;">
+                    <!-- <div id="parallel_coords">
+                </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Total Approved</div>
+                <div id="pie_chart_0_1" class="card-body bg-light" style="Padding: 2px;">
+                    <a class="reset" href="javascript:a15Dimension.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Education</div>
+                <div id="education" class="card-body bg-light" style="padding: 0%;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="./static/crossfilter.js"></script>
+<script src="./static/dc.js"></script>
+
+
+<script>
+    var data = {{ data | safe }};
+    {{taskJS}}(data);
+
+
+    var ndx = crossfilter(data);
+    var all = ndx.groupAll();
+
+    var a15Dimension = ndx.dimension(function(d) { return d["A15"]; });
+
+    var a15Group = a15Dimension.group();
+    // a15Group.top(2)[0]["key"]="Rejected";
+    // a15Group.top(2)[1]["key"]="Accepted";
+
+    var targetPie = dc.pieChart("#pie_chart_0_1");
+
+    targetPie
+        .dimension(a15Dimension)
+        .group(a15Group);
+
+    var a5Dimension = ndx.dimension(d => Math.round(d["A5"]));
+
+    var a5Group = a5Dimension.group();
+    // a15Group.top(2)[0]["key"]="Rejected";
+    // a15Group.top(2)[1]["key"]="Accepted";
+
+    var educationChart = dc.barChart("#education");
+
+    educationChart
+        .dimension(a5Dimension)
+        .group(a5Group)
+        .elasticY(true)
+        .centerBar(true)
+        .gap(1)
+        .round(Math.floor)
+        .alwaysUseRounding(true)
+        .x(d3.scale.linear().domain([0, 15]))
+        .renderHorizontalGridLines(true);
+        // .filterPrinter(filters => {
+        //     const filter = filters[0];
+        //     let s = '';
+        //     s += `${numberFormat(filter[0])}% -> ${numberFormat(filter[1])}%`;
+        //     return s;
+        // });
+        educationChart.xAxis().tickFormat(
+            v => `${v}`);
+        educationChart.yAxis().ticks(5);
+
+
+    dc.renderAll();
+
+</script>
+
+
+{% endblock %}

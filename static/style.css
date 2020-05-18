@@ -1,0 +1,8 @@
+body { padding-bottom: 70px; }
+
+footer{
+    background-color: #2BBBAD ;
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
