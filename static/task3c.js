@@ -32,7 +32,9 @@ function plot(dataPCA) {
         .scale(y)
         .ticks(6);
 
-    var color = d3.scaleOrdinal(d3.schemeCategory10);
+    var color = d3.scaleOrdinal(["#ff0059","#4be399"]);//d3.schemeCategory10);
+    // ff0059
+    // 4be399
 
     var domainByTrait = {},
         traits = d3.keys(dataPCA[0]).filter(function(d) { return d !== "target"; }),

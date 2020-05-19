@@ -64,6 +64,20 @@
 
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="card text-white bg-dark mb-3 d-flex" style="max-width: 18rem;">
+                        <div id="rejectCount" class="card-header">Rejected: </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="card text-white bg-dark mb-3 d-flex" style="max-width: 18rem;">
+                        <div id="approveCount" class="card-header">Accepted:
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -100,20 +114,33 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-white bg-dark mb-3" style="max-width: 96%;">
+                <div class="card-header">Correlation of variables against target</div>
+                <div id="correlation" class="card-body" style="padding: 0.5%;">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- <script async="async">
+    var correlations = {{correlations | safe}};
+    populate_correlations(correlations);
+</script> -->
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="./static/crossfilter.js"></script>
 <script src="./static/dc.js"></script>
+<!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
 
 
 <script async="async">
     var data = {{ data | safe }};
-    {{taskJS}}(data);
-
-
-
-
+    var correlations = {{correlations | safe}};
+    {{taskJS}}(data,correlations);
 </script>
+
 
 
 {% endblock %}

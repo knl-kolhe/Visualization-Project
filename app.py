@@ -277,10 +277,17 @@ def dashboard():
     # originalMDSEu = mds_data.fit_transform(similarity)
     pca = PCA(n_components = 2)
     originalPCA = pca.fit_transform(dataMDS)
-    print(originalPCA.shape)
+    # print(originalPCA.shape)
     dataOriginal['MDS_x']=originalPCA[:,0]
     dataOriginal['MDS_y']=originalPCA[:,1]
-    return render_template("dashboard.html", taskJS="dashboard", data=dataOriginal.to_json(orient='records'))
+    correlations = {}
+    for i in range(14):
+        # print(dataOriginal.keys()[i])
+        correlations[dataOriginal.keys()[i]] = (np.corrcoef(np.array(dataOriginal.iloc[:,i],dtype=np.float32),np.array(dataOriginal['A15'],dtype=np.float32))[0][1])
+    # print(correlations)
+    correlations = pd.DataFrame.from_dict(correlations,orient='index')
+    # print("DataFrame: ",correlations)
+    return render_template("dashboard.html", taskJS="dashboard", data=dataOriginal.to_json(orient='records'),correlations = correlations.to_json(orient='records'))
 
 if __name__== "__main__":
     app.run(debug=True)

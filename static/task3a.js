@@ -93,11 +93,13 @@ function lineChart(pcaX, pcaY,x_axis) {
         .attr("r", 4)
         .style("fill",function(d,i){
             if(pcaY[i]==0){
-                return "#bb3380"
+                return "#ff0059"//#bb3380"
             }
             else{
-                return "#d9ae38"
+                return "#4be399"//#d9ae38"
             }
+            // ff0059
+            // 4be399
 
         })
         .attr("fill-opacity", 0.8);

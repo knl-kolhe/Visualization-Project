@@ -31,7 +31,7 @@ correlations = []
 for i in range(14):
     correlations.append(np.corrcoef(df.iloc[:,i],df['C'])[0][1])
     
-temp = correlations
+temp = list(correlations)
 temp.sort()
 
 for i in range(14):
