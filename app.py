@@ -272,12 +272,14 @@ def dashboard():
     dataOriginal=sampling.originalData()
     dataMDS = dataOriginal
     dataMDS = StandardScaler().fit_transform(dataMDS)
-    mds_data = manifold.MDS(n_components=2, dissimilarity='precomputed')
-    similarity = pairwise_distances(dataMDS, metric='euclidean')
-    originalMDSEu = mds_data.fit_transform(similarity)
-    print(originalMDSEu.shape)
-    dataOriginal['MDS_x']=originalMDSEu[:,0]
-    dataOriginal['MDS_y']=originalMDSEu[:,1]
+    # mds_data = manifold.MDS(n_components=2, dissimilarity='precomputed')
+    # similarity = pairwise_distances(dataMDS, metric='euclidean')
+    # originalMDSEu = mds_data.fit_transform(similarity)
+    pca = PCA(n_components = 2)
+    originalPCA = pca.fit_transform(dataMDS)
+    print(originalPCA.shape)
+    dataOriginal['MDS_x']=originalPCA[:,0]
+    dataOriginal['MDS_y']=originalPCA[:,1]
     return render_template("dashboard.html", taskJS="dashboard", data=dataOriginal.to_json(orient='records'))
 
 if __name__== "__main__":

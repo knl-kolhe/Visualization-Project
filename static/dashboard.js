@@ -16,6 +16,7 @@ function populate_dcJS(data)
     var ndx = crossfilter(data);
     var all = ndx.groupAll();
 
+    //Total Approval Pie Chart ---------------------------------------------------
     var a15Dimension = ndx.dimension(function(d) { return d["A15"]; });
 
     var a15Group = a15Dimension.group();
@@ -28,19 +29,21 @@ function populate_dcJS(data)
         .dimension(a15Dimension)
         .group(a15Group);
 
+    //Prior Default Row Chart ---------------------------------------------------
     var a8Dimension = ndx.dimension(function(d) { return d["A8"]; });
 
     var a8Group = a8Dimension.group();
     // a15Group.top(2)[0]["key"]="Rejected";
     // a15Group.top(2)[1]["key"]="Accepted";
 
-    window.priorDefaultRowChart = dc.rowChart("#priorDefault");
 
+    window.priorDefaultRowChart = dc.rowChart("#priorDefault");
 
     priorDefaultRowChart
         .dimension(a8Dimension)
         .group(a8Group);
 
+    //Education Bar Chart ------------------------------------------------------
     var a5Dimension = ndx.dimension(d => Math.round(d["A5"]));
 
     var a5Group = a5Dimension.group();
@@ -68,6 +71,7 @@ function populate_dcJS(data)
             v => `${v}`);
         educationChart.yAxis().ticks(5);
 
+    //MDS Scatter Plot Chart ---------------------------------------------------
     window.mdsScatterPlot = dc.scatterPlot('#mds');
 
     var mdsDimension = ndx.dimension(function(data) {
@@ -107,6 +111,65 @@ function populate_dcJS(data)
                .dimension(mdsDimension)
                .group(mdsGroup);
 
+    //Age Series Chart ---------------------------------------------------------
+    var a2Dimension = ndx.dimension(d => Math.round(d["A2"]));
+
+    var a2Group = a2Dimension.group();
+
+
+    window.ageBarChart = dc.barChart("#age");
+
+    ageBarChart
+        .dimension(a2Dimension)
+        .group(a2Group)
+        .elasticY(true)
+        .centerBar(true)
+        .gap(1)
+        .round(Math.floor)
+        .alwaysUseRounding(true)
+        .x(d3.scale.linear().domain([0, 85]))
+        .renderHorizontalGridLines(true);
+        // .filterPrinter(filters => {
+        //     const filter = filters[0];
+        //     let s = '';
+        //     s += `${numberFormat(filter[0])}% -> ${numberFormat(filter[1])}%`;
+        //     return s;
+        // });
+        educationChart.xAxis().tickFormat(
+            v => `${v}`);
+        educationChart.yAxis().ticks(5);
+    // var a2Dimension = ndx.dimension(function(d,i) { return [+d["A15"], +i]; });
+    //
+    // var a2Group = a2Dimension.group().reduceSum(function(d) { return +d["A2"]; });
+    //
+    // var symbolScale = d3.scale.ordinal().range(d3.symbols);
+    // var symbolAccessor = function(d) { return symbolScale(d.key[14]); };
+    // var subChart = function(c) {
+    // return new dc.scatterPlot(c)
+    //     .symbol(symbolAccessor)
+    //     .symbolSize(8)
+    //     .highlightedSize(10)
+    // };
+    // window.ageSeriesChart = dc.seriesChart('#age');
+    // ageSeriesChart
+    // .chart(subChart)
+    // .x(d3.scale.linear().domain([0,689]))
+    // .brushOn(true)
+    // .yAxisLabel("Data Points")
+    // .xAxisLabel("Age")
+    // .clipPadding(10)
+    // .elasticY(true)
+    // .dimension(a2Dimension)
+    // .group(a2Group)
+    // .mouseZoomable(true)
+    // .shareTitle(false) // allow default scatter title to work
+    // .seriesAccessor(function(d) {return "A: " + d.key[14];})
+    // .keyAccessor(function(d,i) {return +i;})
+    // .valueAccessor(function(d) {return +d.value;})
+    // .legend(dc.legend().x(350).y(350).itemHeight(13).gap(5).horizontal(1).legendWidth(140).itemWidth(70));
+    // // chart.yAxis().tickFormat(function(d) {return d3.format(',d')(d+299500);});
+    // ageSeriesChart.margins().left += 40;
+
     dc.renderAll();
 };
 
@@ -143,7 +206,7 @@ function populate_parallel(data)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+    // dc.registerChart(svg);
     // d3.csv("./datasets/australian.csv", function(error, data) {
     dimensions = ['A8','A9','A10','A5','A7','A6','A3','A4','A14','A2','A12','A11','A13','A1']
     dimension_name = ['Prior Default', 'Employed', 'Credit Score', 'Education', 'LenEmployed', 'Current Job',
@@ -213,6 +276,7 @@ function populate_parallel(data)
                   .delay(500)
                   .duration(0)
                   .attr("visibility", null);
+                 // dc.redrawAll();
             }));
 
       // Add an axis and title.
