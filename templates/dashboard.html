@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title> Visualization Project 2 </title>
+<title> Dashboard | Visualization Project </title>
 <script src="./static/{{taskJS}}.js"></script>
 <link rel="stylesheet" type="text/css" href="./static/dc.css">
 <style>
@@ -48,7 +48,7 @@
         <div class="col-sm-9">
             <div class="card text-white bg-dark mb-3">
                 <div class="card-header">
-                    Parallel Coordinates
+                    The entire dataset visualized using <b>Parallel Coordinates</b>
                 </div>
                 <div id="parallel_coords" class="card-body bg-light" style="padding: 0%;">
                     <!-- <div id="parallel_coords">
@@ -58,7 +58,7 @@
         </div>
         <div class="col-sm-3">
             <div class="card text-white bg-dark mb-3 d-flex" style="max-width: 18rem;">
-                <div class="card-header">Total Approved</div>
+                <div class="card-header">Total Approved Credit Applications</div>
                 <div id="pie_chart_0_1" class="card-body bg-light" style="Padding: 2px;">
                     <a class="reset" href="javascript:targetPie.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
 
@@ -82,6 +82,22 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
+                <div class="card-header">2 dimensional PCA of the entire dataset</div>
+                <div id="mds" class="card-body bg-light" style="padding: 0%;">
+                    <a class="reset" href="javascript:mdsScatterPlot.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Credit History</div>
+                <div id="creditHistory" class="card-body bg-light" style="padding: 0%;">
+                    <a class="reset" href="javascript:creditHistoryChart.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
             <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                 <div class="card-header">Education</div>
                 <div id="education" class="card-body bg-light" style="padding: 0%;">
@@ -89,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                 <div class="card-header">Prior Default</div>
                 <div id="priorDefault" class="card-body bg-light" style="padding: 0%;">
@@ -97,14 +113,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                <div class="card-header">MDS</div>
-                <div id="mds" class="card-body bg-light" style="padding: 0%;">
-                    <a class="reset" href="javascript:mdsScatterPlot.filterAll(); dc.redrawAll();" style="display: none;">reset</a>
-                </div>
-            </div>
-        </div>
+
         <div class="col-sm-3">
             <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                 <div class="card-header">Age</div>

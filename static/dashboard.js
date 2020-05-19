@@ -102,7 +102,7 @@ function populate_correlations(corr)
                                         .attr("y",Math.floor(height*0.4))
                                         .text(function(d){ return d; })
                                         .style("fill","black")
-                                        .style("font-size","12px")
+                                        .style("font-size","16px")
                                         .style("align","center");
 
 
@@ -247,6 +247,34 @@ function populate_dcJS(data)
     priorDefaultRowChart
         .dimension(a8Dimension)
         .group(a8Group);
+
+    //Credit History Bar Chart -------------------------------------------------
+    var a10Dimension = ndx.dimension(d => Math.round(d["A10"]));
+
+    var a10Group = a10Dimension.group();
+
+
+    window.creditHistoryChart = dc.barChart("#creditHistory");
+
+    creditHistoryChart
+        .dimension(a10Dimension)
+        .group(a10Group)
+        .elasticY(true)
+        .centerBar(true)
+        .gap(1)
+        .round(Math.floor)
+        .alwaysUseRounding(true)
+        .x(d3.scale.linear().domain([0,20]))
+        .renderHorizontalGridLines(true);
+        // .filterPrinter(filters => {
+        //     const filter = filters[0];
+        //     let s = '';
+        //     s += `${numberFormat(filter[0])}% -> ${numberFormat(filter[1])}%`;
+        //     return s;
+        // });
+        creditHistoryChart.xAxis().tickFormat(
+            v => `${v}`);
+        creditHistoryChart.yAxis().ticks(5);
 
     //Education Bar Chart ------------------------------------------------------
     var a5Dimension = ndx.dimension(d => Math.round(d["A5"]));
